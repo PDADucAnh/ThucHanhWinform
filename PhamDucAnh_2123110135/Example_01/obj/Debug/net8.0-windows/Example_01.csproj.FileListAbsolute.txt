@@ -1,0 +1,17 @@
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\bin\Debug\net8.0-windows\Example_01.exe
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\bin\Debug\net8.0-windows\Example_01.deps.json
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\bin\Debug\net8.0-windows\Example_01.runtimeconfig.json
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\bin\Debug\net8.0-windows\Example_01.dll
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\bin\Debug\net8.0-windows\Example_01.pdb
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form1.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.MenuForm.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.csproj.GenerateResource.cache
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.GeneratedMSBuildEditorConfig.editorconfig
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.AssemblyInfoInputs.cache
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.AssemblyInfo.cs
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.csproj.CoreCompileInputs.cache
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.dll
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\refint\Example_01.dll
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.pdb
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.genruntimeconfig.cache
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\ref\Example_01.dll
