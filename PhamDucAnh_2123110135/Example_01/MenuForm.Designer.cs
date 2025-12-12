@@ -38,7 +38,7 @@
             btnExample01.BackColor = SystemColors.GradientActiveCaption;
             btnExample01.Location = new Point(41, 25);
             btnExample01.Name = "btnExample01";
-            btnExample01.Size = new Size(150, 100);
+            btnExample01.Size = new Size(158, 100);
             btnExample01.TabIndex = 0;
             btnExample01.Text = "Example01";
             btnExample01.UseVisualStyleBackColor = false;
@@ -48,7 +48,7 @@
             // 
             button2.Location = new Point(310, 28);
             button2.Name = "button2";
-            button2.Size = new Size(228, 179);
+            button2.Size = new Size(168, 97);
             button2.TabIndex = 1;
             button2.Text = "button2";
             button2.UseVisualStyleBackColor = true;
@@ -57,7 +57,7 @@
             // 
             btn03.Location = new Point(564, 33);
             btn03.Name = "btn03";
-            btn03.Size = new Size(208, 174);
+            btn03.Size = new Size(176, 92);
             btn03.TabIndex = 2;
             btn03.Text = "button3";
             btn03.UseVisualStyleBackColor = true;
