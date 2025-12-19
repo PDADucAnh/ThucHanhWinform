@@ -15,4 +15,14 @@ D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_
 D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.genruntimeconfig.cache
 D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\ref\Example_01.dll
 D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.sourcelink.json
-D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.InfoWindows.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form2.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form3.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form1.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form4.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form5.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form6.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form7.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form8.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form9.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form10.resources
+D:\TrenLop\C#\PhamDucAnh_2123110135\Example_01\obj\Debug\net8.0-windows\Example_01.Form11.resources

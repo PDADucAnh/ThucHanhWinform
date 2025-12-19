@@ -1,47 +1,44 @@
 ﻿using System;
-using System.Drawing; // Để dùng Point, Size
+using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml.Serialization;
 
 namespace Example_01
 {
-    // --- KHẮC PHỤC LỖI Ở ĐÂY ---
-    // Bạn phải định nghĩa class InfoWindows nằm TRONG namespace nhưng NGOÀI class Form1
-    public class InfoWindows
-    {
-        public int Width { get; set; }
-        public int Height { get; set; }
-        // Lưu ý: Slide 28 chưa có Location, nhưng Slide 38 sẽ cần. 
-        // Ta cứ để tạm Width/Height theo đúng bài Slide 28.
-    }
-    // ---------------------------
+    // LƯU Ý: Đã XÓA class InfoWindows ở đây vì nó đã nằm bên file InfoWindows.cs
 
-    public partial class Form1 : Form
+    public partial class Form1 : Form // Hoặc Form3 tùy tên bạn đặt
     {
-        // Đường dẫn file lưu cấu hình
-        string path = Application.StartupPath + "\\form.xml";
+        // Sử dụng StartupPath để lưu file ngay tại thư mục chạy chương trình (tránh lỗi ổ D)
+        string path = Application.StartupPath + "\\config.xml";
 
         public Form1()
         {
             InitializeComponent();
+            this.Text = "Example 03: Save Config & Location";
+
+            // Tự động gắn sự kiện (Code này rất tốt, không cần chỉnh Designer)
+            this.Load += new EventHandler(Form1_Load);
+            this.ResizeEnd += new EventHandler(Form1_ResizeEnd);
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
         }
 
-        // Hàm Ghi
+        // --- CÁC HÀM XỬ LÝ ĐỌC/GHI ---
         public void Write(InfoWindows iw)
         {
             try
             {
                 XmlSerializer writer = new XmlSerializer(typeof(InfoWindows));
+                // Dùng khối 'using' để file tự động đóng sau khi ghi xong -> Rất chuẩn
                 using (StreamWriter file = new StreamWriter(path))
                 {
                     writer.Serialize(file, iw);
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Lỗi ghi: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Lỗi lưu file: " + ex.Message); }
         }
 
-        // Hàm Đọc
         public InfoWindows Read()
         {
             if (!File.Exists(path)) return null;
@@ -56,24 +53,8 @@ namespace Example_01
             catch { return null; }
         }
 
-        // Sự kiện ResizeEnd (Slide 22-29)
-        private void Form1_ResizeEnd(object sender, EventArgs e)
-        {
-            // 1. Lấy kích thước
-            int width = this.Size.Width;
-            int height = this.Size.Height;
+        // --- CÁC SỰ KIỆN ---
 
-            // 2. Hiện lên tiêu đề
-            this.Text = width.ToString() + " - " + height.ToString();
-
-            // 3. Lưu xuống file
-            InfoWindows iw = new InfoWindows(); // Máy tính sẽ tìm thấy class này ở phía trên
-            iw.Width = width;
-            iw.Height = height;
-            Write(iw);
-        }
-
-        // Sự kiện Load (Slide 34)
         private void Form1_Load(object sender, EventArgs e)
         {
             InfoWindows iw = Read();
@@ -81,8 +62,48 @@ namespace Example_01
             {
                 this.Width = iw.Width;
                 this.Height = iw.Height;
-                this.Text = iw.Width.ToString() + " - " + iw.Height.ToString();
+
+                // Kiểm tra tọa độ để tránh form bay ra khỏi màn hình
+                if (iw.Location.X >= 0 && iw.Location.Y >= 0)
+                {
+                    this.StartPosition = FormStartPosition.Manual;
+                    this.Location = iw.Location;
+                }
             }
+        }
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
+        {
+            // Lưu trạng thái ngay khi kéo thả xong
+            SaveCurrentState();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Lưu trạng thái lần cuối khi tắt
+            SaveCurrentState();
+        }
+
+        // Hàm phụ trợ để tránh viết lặp lại code lưu
+        private void SaveCurrentState()
+        {
+            InfoWindows iw = new InfoWindows();
+
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                iw.Width = this.Size.Width;
+                iw.Height = this.Size.Height;
+                iw.Location = this.Location;
+            }
+            else
+            {
+                // Nếu form đang Maximize (phóng to), lưu kích thước lúc chưa phóng to
+                iw.Width = this.RestoreBounds.Width;
+                iw.Height = this.RestoreBounds.Height;
+                iw.Location = this.RestoreBounds.Location;
+            }
+
+            Write(iw);
         }
     }
 }
