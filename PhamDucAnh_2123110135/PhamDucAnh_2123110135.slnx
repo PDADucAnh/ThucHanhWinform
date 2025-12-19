@@ -1,4 +1,4 @@
 <Solution>
+  <Project Path="Example02/Example02.csproj" Id="7d136b22-8df4-4a60-a0c5-689191ed786f" />
   <Project Path="Example_01/Example_01.csproj" />
-  <Project Path="Example_02/Example_02.csproj" />
 </Solution>

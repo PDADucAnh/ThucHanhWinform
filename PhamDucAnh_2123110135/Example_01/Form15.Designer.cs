@@ -63,7 +63,7 @@
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(200, 20);
             this.tbName.TabIndex = 1;
-            this.tbName.Text = "Trần Thị Học Lại"; // Giá trị mẫu
+            this.tbName.Text = "Phạm Đức Anh"; // Giá trị mẫu
 
             // 
             // lblDob (Ngày Sinh)

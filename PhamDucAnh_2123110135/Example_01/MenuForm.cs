@@ -107,5 +107,33 @@ namespace Example_01
             form12.Show();
 
         }
+
+        private void btnExample14_Click(object sender, EventArgs e)
+        {
+            Form13 form13 = new Form13();
+            form13.Show();
+
+        }
+
+        private void btnExample15_Click(object sender, EventArgs e)
+        {
+            Form14 form14 = new Form14();
+            form14.Show();
+
+        }
+
+        private void btnExample16_Click(object sender, EventArgs e)
+        {
+            Form15 form15 = new Form15();
+            form15.Show();
+
+        }
+
+        private void btnExample17_Click(object sender, EventArgs e)
+        {
+            Form16 form16 = new Form16();
+            form16.Show();
+
+        }
     }
 }
