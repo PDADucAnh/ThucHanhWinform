@@ -25,18 +25,23 @@
             lblLevel = new Label();
             gameTimer = new System.Windows.Forms.Timer(components);
             pnlMenu = new Panel();
-            btnStart = new Button();
+            // Thay Button bằng PictureBox
+            picBtnStart = new PictureBox();
             lblResult = new Label();
             lblTitle = new Label();
+            // Thêm 2 label mới cho giá trị điểm và level
+            lblScoreValue = new Label();
+            lblLevelValue = new Label();
             ((System.ComponentModel.ISupportInitialize)picChicken).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picEgg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBasket).BeginInit();
             pnlMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picBtnStart).BeginInit();
             SuspendLayout();
             // 
             // picChicken
             // 
-            picChicken.BackColor = Color.Transparent; // Đặt trong suốt
+            picChicken.BackColor = Color.Transparent;
             picChicken.Image = Properties.Resources.chicken;
             picChicken.Location = new Point(450, 12);
             picChicken.Name = "picChicken";
@@ -47,7 +52,7 @@
             // 
             // picEgg
             // 
-            picEgg.BackColor = Color.Transparent; // Đặt trong suốt
+            picEgg.BackColor = Color.Transparent;
             picEgg.Image = Properties.Resources.egg;
             picEgg.Location = new Point(490, 169);
             picEgg.Name = "picEgg";
@@ -58,7 +63,7 @@
             // 
             // picBasket
             // 
-            picBasket.BackColor = Color.Transparent; // Đặt trong suốt
+            picBasket.BackColor = Color.Transparent;
             picBasket.Image = Properties.Resources.basket;
             picBasket.Location = new Point(395, 452);
             picBasket.Name = "picBasket";
@@ -70,7 +75,7 @@
             // lblScore
             // 
             lblScore.AutoSize = true;
-            lblScore.BackColor = Color.Transparent; // Đặt trong suốt
+            lblScore.BackColor = Color.Transparent;
             lblScore.Font = new Font("Showcard Gothic", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblScore.Location = new Point(129, 12);
             lblScore.Name = "lblScore";
@@ -81,7 +86,7 @@
             // lblLevel
             // 
             lblLevel.AutoSize = true;
-            lblLevel.BackColor = Color.Transparent; // Đặt trong suốt
+            lblLevel.BackColor = Color.Transparent;
             lblLevel.Font = new Font("Showcard Gothic", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblLevel.Location = new Point(14, 12);
             lblLevel.Name = "lblLevel";
@@ -96,10 +101,12 @@
             // 
             // pnlMenu
             // 
-            // CẤU HÌNH NỀN MENU BẰNG ẢNH
             pnlMenu.BackgroundImage = Properties.Resources.menu_bg;
             pnlMenu.BackgroundImageLayout = ImageLayout.Stretch;
-            pnlMenu.Controls.Add(btnStart);
+            // Thêm các control mới vào panel
+            pnlMenu.Controls.Add(lblLevelValue);
+            pnlMenu.Controls.Add(lblScoreValue);
+            pnlMenu.Controls.Add(picBtnStart);
             pnlMenu.Controls.Add(lblResult);
             pnlMenu.Controls.Add(lblTitle);
             pnlMenu.Dock = DockStyle.Fill;
@@ -108,50 +115,51 @@
             pnlMenu.Size = new Size(1102, 600);
             pnlMenu.TabIndex = 10;
             // 
-            // btnStart
+            // picBtnStart (Thay thế cho btnStart)
             // 
-            // CẤU HÌNH NÚT BẮT ĐẦU BẰNG ẢNH
-            btnStart.BackColor = Color.Transparent; // Nền trong suốt
-            btnStart.BackgroundImage = Properties.Resources.btn_start;
-            btnStart.BackgroundImageLayout = ImageLayout.Stretch; // Co giãn ảnh vừa nút
-            btnStart.FlatAppearance.BorderSize = 0; // Xóa viền đen
-            btnStart.FlatAppearance.MouseDownBackColor = Color.Transparent; // Xóa hiệu ứng nhấn
-            btnStart.FlatAppearance.MouseOverBackColor = Color.Transparent; // Xóa hiệu ứng di chuột
-            btnStart.FlatStyle = FlatStyle.Flat; // Chuyển sang phẳng
-            btnStart.Font = new Font("Showcard Gothic", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnStart.ForeColor = Color.White;
-            btnStart.Location = new Point(420, 300);
-            btnStart.Name = "btnStart";
-            btnStart.Size = new Size(260, 80); // Bạn có thể chỉnh lại size này cho vừa với ảnh nút của bạn
-            btnStart.TabIndex = 2;
-            btnStart.Text = ""; // Xóa chữ mặc định để hiện ảnh nút đẹp hơn
-            btnStart.UseVisualStyleBackColor = false;
-            btnStart.Click += btnStart_Click;
+            picBtnStart.BackColor = Color.Transparent;
+            picBtnStart.Image = Properties.Resources.btn_start;
+            picBtnStart.Location = new Point(420, 300);
+            picBtnStart.Name = "picBtnStart";
+            picBtnStart.Size = new Size(260, 80);
+            picBtnStart.SizeMode = PictureBoxSizeMode.StretchImage;
+            picBtnStart.TabIndex = 2;
+            picBtnStart.TabStop = false;
+            // Gán sự kiện click
+            picBtnStart.Click += picBtnStart_Click;
             // 
             // lblResult
             // 
-            lblResult.BackColor = Color.Transparent; // Nền trong suốt để hiện ảnh nền
+            lblResult.BackColor = Color.Transparent;
             lblResult.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblResult.ForeColor = Color.White; // Đổi màu chữ sang trắng cho dễ nhìn trên nền ảnh
+            lblResult.ForeColor = Color.White;
             lblResult.Location = new Point(200, 220);
             lblResult.Name = "lblResult";
             lblResult.Size = new Size(700, 50);
             lblResult.TabIndex = 1;
-            //lblResult.Text = "Chào mừng! Hãy bắt đầu chơi.";
             lblResult.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblTitle
+            lblScoreValue.AutoSize = true;
+            lblScoreValue.BackColor = Color.Transparent;
+            lblScoreValue.Font = new Font("Showcard Gothic", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblScoreValue.ForeColor = Color.White;
+            lblScoreValue.Location = new Point(800, 250); // Vị trí tạm, sẽ được set lại trong code
+            lblScoreValue.Name = "lblScoreValue";
+            lblScoreValue.Size = new Size(43, 46);
+            lblScoreValue.TabIndex = 5;
+            lblScoreValue.Text = "0";
             // 
-            //lblTitle.AutoSize = true;
-            //lblTitle.BackColor = Color.Transparent; // Nền trong suốt
-            //lblTitle.Font = new Font("Showcard Gothic", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            //lblTitle.ForeColor = Color.Yellow; // Đổi màu chữ sang Vàng cho nổi bật
-            //lblTitle.Location = new Point(250, 100);
-            //lblTitle.Name = "lblTitle";
-            //lblTitle.Size = new Size(559, 98);
-            //lblTitle.TabIndex = 0;
-            //lblTitle.Text = "HỨNG TRỨNG";
-            //lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // lblLevelValue (Label mới cho level)
+            // 
+            lblLevelValue.AutoSize = true;
+            lblLevelValue.BackColor = Color.Transparent;
+            lblLevelValue.Font = new Font("Showcard Gothic", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLevelValue.ForeColor = Color.White;
+            lblLevelValue.Location = new Point(800, 300); // Vị trí tạm, sẽ được set lại trong code
+            lblLevelValue.Name = "lblLevelValue";
+            lblLevelValue.Size = new Size(43, 46);
+            lblLevelValue.TabIndex = 6;
+            lblLevelValue.Text = "1";
             // 
             // Form1
             // 
@@ -173,6 +181,7 @@
             ((System.ComponentModel.ISupportInitialize)picBasket).EndInit();
             pnlMenu.ResumeLayout(false);
             pnlMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picBtnStart).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -188,6 +197,9 @@
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblResult;
-        private System.Windows.Forms.Button btnStart;
+        // Đã xóa Button btnStart
+        private System.Windows.Forms.PictureBox picBtnStart; // Thêm PictureBox mới
+        private System.Windows.Forms.Label lblScoreValue; // Thêm Label điểm
+        private System.Windows.Forms.Label lblLevelValue; // Thêm Label level
     }
 }

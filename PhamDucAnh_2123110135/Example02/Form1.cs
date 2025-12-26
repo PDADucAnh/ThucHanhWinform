@@ -20,6 +20,9 @@ namespace Example02
         Random rand = new Random();
         int eggDrift = 0;
 
+        // Biến trạng thái để biết đang ở màn hình nào (0: Start, 1: Game Over, 2: Victory)
+        int menuState = 0;
+
         // --- CẤU HÌNH ÂM THANH ---
         [DllImport("winmm.dll")]
         private static extern long mciSendString(string strCommand, StringBuilder strReturn, int iReturnLength, IntPtr hwndCallback);
@@ -42,6 +45,10 @@ namespace Example02
             lblScore.BackColor = Color.Transparent;
             lblLevel.BackColor = Color.Transparent;
 
+            // Làm trong suốt các label điểm số trên bảng
+            lblScoreValue.BackColor = Color.Transparent;
+            lblLevelValue.BackColor = Color.Transparent;
+
             // --- KHỞI TẠO ÂM THANH ---
             try
             {
@@ -51,7 +58,8 @@ namespace Example02
             }
             catch { }
 
-            SetupMenuVisuals();
+            // Cài đặt màn hình Bắt đầu (Start Menu)
+            SetupStartMenuVisuals();
             ShowMenu();
         }
 
@@ -78,42 +86,64 @@ namespace Example02
         }
 
         // --------------------------
+        // --- CÁC HÀM THIẾT LẬP GIAO DIỆN MENU ---
 
-        private void SetupMenuVisuals()
+        // 1. Màn hình Bắt Đầu (Lúc mới mở game)
+        private void SetupStartMenuVisuals()
         {
-            // 1. Cấu hình Nền và Nút
+            menuState = 0;
             try
             {
                 pnlMenu.BackgroundImage = Properties.Resources.menu_bg;
-                pnlMenu.BackgroundImageLayout = ImageLayout.Stretch;
-
-                btnStart.BackgroundImage = Properties.Resources.btn_start;
-                btnStart.BackgroundImageLayout = ImageLayout.Stretch;
-                btnStart.Text = "";
-                btnStart.FlatStyle = FlatStyle.Flat;
-                btnStart.FlatAppearance.BorderSize = 0;
-                btnStart.BackColor = Color.Transparent;
-                btnStart.FlatAppearance.MouseDownBackColor = Color.Transparent;
-                btnStart.FlatAppearance.MouseOverBackColor = Color.Transparent;
+                // Dùng PictureBox làm nút, không bị viền
+                picBtnStart.Image = Properties.Resources.btn_start;
+                // Ẩn các thành phần không cần thiết
+                lblResult.Visible = false;
+                lblScoreValue.Visible = false;
+                lblLevelValue.Visible = false;
+                lblTitle.Visible = true;
             }
             catch { }
+        }
 
-            // 2. Cấu hình Tiêu đề (Game Title)
-            lblTitle.BackColor = Color.Transparent;
-            lblTitle.ForeColor = Color.Yellow; // Màu vàng nổi bật
-            // Tạo viền bóng đổ giả bằng cách vẽ chồng (ở mức đơn giản ta chọn màu sáng)
+        // 2. Màn hình Thua Cuộc (Game Over)
+        private void SetupGameOverVisuals()
+        {
+            menuState = 1;
+            try
+            {
+                pnlMenu.BackgroundImage = Properties.Resources.thuagame;
+                // Dùng nút chơi lại màu đỏ
+                picBtnStart.Image = Properties.Resources.choilai1;
 
-            // 3. CẤU HÌNH BẢNG KẾT QUẢ (SỬA LẠI ĐỂ DỄ NHÌN HƠN)
-            // Thay vì Transparent hoàn toàn, ta dùng màu Đen Mờ (Alpha = 150)
-            // Điều này giúp chữ luôn đọc được bất kể hình nền là gì
-            lblResult.BackColor = Color.FromArgb(180, 0, 0, 0); // Đen mờ 70%
-            lblResult.ForeColor = Color.White; // Chữ trắng
-            lblResult.Font = new Font("Arial", 16F, FontStyle.Bold);
-            lblResult.TextAlign = ContentAlignment.MiddleCenter; // Căn giữa
+                // Hiện các label điểm số
+                lblScoreValue.Visible = true;
+                lblLevelValue.Visible = true;
 
-            // Chỉnh lại kích thước label chứa kết quả cho rộng rãi
-            lblResult.AutoSize = false;
-            lblResult.Size = new Size(600, 100);
+                // Ẩn tiêu đề và label kết quả cũ
+                lblTitle.Visible = false;
+                lblResult.Visible = false;
+            }
+            catch { }
+        }
+
+        // 3. Màn hình Chiến Thắng (Victory)
+        private void SetupVictoryMenuVisuals()
+        {
+            menuState = 2;
+            try
+            {
+                pnlMenu.BackgroundImage = Properties.Resources.win;
+                // Dùng nút chơi lại màu xanh
+                picBtnStart.Image = Properties.Resources.choilai;
+
+                // Ẩn hết các label
+                lblResult.Visible = false;
+                lblScoreValue.Visible = false;
+                lblLevelValue.Visible = false;
+                lblTitle.Visible = false;
+            }
+            catch { }
         }
 
         private Bitmap MakeImageTransparent(Image originalImage)
@@ -130,24 +160,40 @@ namespace Example02
             pnlMenu.Visible = true;
             pnlMenu.BringToFront();
 
-            // CĂN CHỈNH VỊ TRÍ CÁC THÀNH PHẦN TRÊN MENU
             int centerX = this.ClientSize.Width / 2;
-            int centerY = this.ClientSize.Height / 2;
+            int h = this.ClientSize.Height;
+            int w = this.ClientSize.Width;
 
-            // Tiêu đề nằm trên cao
-            lblTitle.Left = centerX - (lblTitle.Width / 2);
-            lblTitle.Top = 50;
+            // --- CĂN CHỈNH VỊ TRÍ ---
 
-            // Kết quả nằm giữa
-            lblResult.Left = centerX - (lblResult.Width / 2);
-            lblResult.Top = lblTitle.Bottom + 20; // Cách tiêu đề 20px
+            // Căn giữa nút chơi (PictureBox)
+            picBtnStart.Left = centerX - (picBtnStart.Width / 2);
+            // Đặt vị trí nút thấp xuống
+            picBtnStart.Top = (int)(h * 0.6) - (picBtnStart.Height / 2);
 
-            // Nút chơi nằm dưới cùng
-            btnStart.Left = centerX - (btnStart.Width / 2);
-            btnStart.Top = lblResult.Bottom + 30; // Cách bảng điểm 30px
+            if (menuState == 1) // GAME OVER
+            {
+                // Cập nhật giá trị điểm và level
+                lblScoreValue.Text = score.ToString();
+                lblLevelValue.Text = level.ToString();
+
+                // Căn chỉnh vị trí 2 label số liệu vào đúng dòng trên bảng gỗ
+                // Các tỉ lệ này được ước lượng từ ảnh mẫu, bạn có thể tinh chỉnh thêm
+                lblScoreValue.Left = (int)(w * 0.74); // Cách lề trái 74%
+                lblScoreValue.Top = (int)(h * 0.41);  // Cách lề trên 41%
+
+                lblLevelValue.Left = (int)(w * 0.74); // Cách lề trái 74%
+                lblLevelValue.Top = (int)(h * 0.49);  // Cách lề trên 49%
+            }
+            else if (menuState == 0 && lblTitle.Visible) // START MENU
+            {
+                lblTitle.Left = centerX - (lblTitle.Width / 2);
+                lblTitle.Top = 50;
+            }
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        // Sự kiện Click cho PictureBox nút chơi
+        private void picBtnStart_Click(object sender, EventArgs e)
         {
             pnlMenu.Visible = false;
             ResetGame();
@@ -232,10 +278,18 @@ namespace Example02
             StopBackgroundMusic();
             try { if (sndGameOver != null) sndGameOver.Play(); } catch { }
 
-            // Sửa nội dung hiển thị cho đẹp
-            // Xuống dòng (\n) để tách chữ THUA RỒI và Điểm số
-            lblResult.Text = "GAME OVER!\nĐiểm: " + score + "   |   Cấp độ: " + level;
+            // GỌI GIAO DIỆN GAME OVER
+            SetupGameOverVisuals();
+            ShowMenu();
+        }
 
+        private void VictoryGame()
+        {
+            gameTimer.Stop();
+            StopBackgroundMusic();
+
+            // GỌI GIAO DIỆN CHIẾN THẮNG
+            SetupVictoryMenuVisuals();
             ShowMenu();
         }
 
@@ -246,9 +300,16 @@ namespace Example02
                 try { if (sndLevelUp != null) sndLevelUp.Play(); } catch { }
 
                 level++;
-                if (level > 5) level = 5;
-                UpdateLevelVisuals();
-                speedEgg += 2;
+                if (level > 5)
+                {
+                    level = 5;
+                    VictoryGame(); // Thắng game
+                }
+                else
+                {
+                    UpdateLevelVisuals();
+                    speedEgg += 2;
+                }
             }
         }
 
